@@ -7,6 +7,7 @@ from datetime import datetime, timezone
 from models.models import JobStatus
 from models.database import check_database_health
 from utils import (
+    deep_serialize,
     build_dataset_name,
     enhance_filters_with_metadata,
     build_dlt_env_vars,

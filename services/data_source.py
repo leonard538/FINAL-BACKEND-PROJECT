@@ -167,7 +167,7 @@ def create_data_source(
         pause_check_interval = 1
         job_id = filters.get("scan_id") or job_config.get("scanId") or "unknown"
         requested_properties = filters.get("properties") or []
-        pipeline_name = filters.get("pipeline") or app_config.HUBSPOT_PIPELINE_NAME
+        pipeline_name = filters.get("pipeline")
         include_archived = _to_bool(filters.get("archived", False))
 
         if not isinstance(requested_properties, list):
