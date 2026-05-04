@@ -1,6 +1,5 @@
 import dlt
 import os
-import logging
 import asyncio
 from typing import Dict, List, Optional, Any
 from datetime import datetime, timezone
@@ -8,7 +7,6 @@ from datetime import datetime, timezone
 from models.models import JobStatus
 from models.database import check_database_health
 from utils import (
-    deep_serialize,
     build_dataset_name,
     enhance_filters_with_metadata,
     build_dlt_env_vars,
@@ -17,7 +15,7 @@ from .database_service import DatabaseService
 from .data_source import create_data_source
 
 from .job_service import JobService
-from loki_logger import get_logger, log_business_event, log_security_event
+from loki_logger import get_logger, log_business_event
 
 
 class ExtractionService:
