@@ -2,6 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 import logging
 import os
+from dotenv import load_dotenv
 
 from config import get_config
 from api.routes import create_api
@@ -10,6 +11,9 @@ from models.database import initialize_database
 
 def create_app(config_name: str = None) -> Flask:
     """Application factory function"""
+    
+    # Load environment variables from .env file
+    load_dotenv()
     
     # Create Flask app
     app = Flask(__name__)

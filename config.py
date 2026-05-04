@@ -50,6 +50,17 @@ class Config:
     API_RETRY_ATTEMPTS = int(os.environ.get('API_RETRY_ATTEMPTS', 3))
     API_RETRY_DELAY = int(os.environ.get('API_RETRY_DELAY', 1))
     
+    # HubSpot API settings
+    HUBSPOT_PRIVATE_APP_TOKEN = os.environ.get('HUBSPOT_PRIVATE_APP_TOKEN', '')
+    HUBSPOT_API_BASE_URL = os.environ.get('HUBSPOT_API_BASE_URL', 'https://api.hubapi.com')
+    HUBSPOT_API_TIMEOUT = int(os.environ.get('HUBSPOT_API_TIMEOUT', 30))
+    HUBSPOT_API_RETRY_ATTEMPTS = int(os.environ.get('HUBSPOT_API_RETRY_ATTEMPTS', 3))
+    HUBSPOT_API_RETRY_DELAY = int(os.environ.get('HUBSPOT_API_RETRY_DELAY', 1))
+    HUBSPOT_RATE_LIMIT = int(os.environ.get('HUBSPOT_RATE_LIMIT', 150))  # requests per 10 seconds
+    HUBSPOT_RATE_LIMIT_WINDOW = int(os.environ.get('HUBSPOT_RATE_LIMIT_WINDOW', 10))  # seconds
+    HUBSPOT_PIPELINE_NAME = os.environ.get('HUBSPOT_PIPELINE_NAME', 'default')
+    HUBSPOT_DEALS_ENDPOINT = os.environ.get('HUBSPOT_DEALS_ENDPOINT', '/crm/v3/objects/deals')
+    
     # Extraction service settings
     MAX_CONCURRENT_SCANS = int(os.environ.get('MAX_CONCURRENT_SCANS', 5))
     SCAN_TIMEOUT_HOURS = int(os.environ.get('SCAN_TIMEOUT_HOURS', 24))
@@ -278,6 +289,21 @@ class Config:
             "max_crash_detection_timeout": 60, # Maximum allowed timeout value for crash detection
         }
 
+
+    @classmethod
+    def get_hubspot_config(cls) -> Dict[str, Any]:
+        """Get HubSpot API specific configuration"""
+        return {
+            'api_token': cls.HUBSPOT_PRIVATE_APP_TOKEN,
+            'api_base_url': cls.HUBSPOT_API_BASE_URL,
+            'timeout': cls.HUBSPOT_API_TIMEOUT,
+            'retry_attempts': cls.HUBSPOT_API_RETRY_ATTEMPTS,
+            'retry_delay': cls.HUBSPOT_API_RETRY_DELAY,
+            'rate_limit': cls.HUBSPOT_RATE_LIMIT,
+            'rate_limit_window': cls.HUBSPOT_RATE_LIMIT_WINDOW,
+            'pipeline_name': cls.HUBSPOT_PIPELINE_NAME,
+            'deals_endpoint': cls.HUBSPOT_DEALS_ENDPOINT,
+        }
 
 class DevelopmentConfig(Config):
     """Development configuration"""
